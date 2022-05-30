@@ -19,7 +19,11 @@ describe('KundenDashboardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should show title ', () => {
+    expect(fixture.nativeElement.querySelector('[data-test="Title"]')).toBeTruthy();
   });
+  it('should show table ', () => {
+    expect(fixture.nativeElement.querySelectorAll('.attributes').length).toBe(5);
+  });
+
 });
