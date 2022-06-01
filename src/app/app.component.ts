@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-
+import {ReactiveFormsModule} from "@angular/forms";
+import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
+import {CrudService} from "./crud.service";
 
 @Component({
   selector: 'app-root',
