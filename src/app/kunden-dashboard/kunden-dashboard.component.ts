@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
-import { FormControl, FormGroup} from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {KundenModel} from "../Kunden-Model";
 import {CrudService} from "../crud.service";
 
@@ -11,20 +11,24 @@ import {CrudService} from "../crud.service";
 })
 export class KundenDashboardComponent implements OnInit {
 
-  formvalue: FormGroup = new FormGroup({
-    Id: new FormControl(['']),
-    Name: new FormControl(['']),
-    Vorname: new FormControl(['']),
-    Email: new FormControl([''])
+  formvalue: UntypedFormGroup = new UntypedFormGroup({
+    Id: new UntypedFormControl(['']),
+    Name: new UntypedFormControl(['']),
+    Vorname: new UntypedFormControl(['']),
+    Email: new UntypedFormControl([''])
   });
   kundenObj: KundenModel=new KundenModel();
+  KundenDaten:any;
   constructor(config: NgbModalConfig, private modalService: NgbModal,private api: CrudService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
 
-  ngOnInit(): void { }
+  ngOnInit(): void
+  {
+    this.getDetails();
+  }
 
   open(content: any) {
     this.modalService.open(content);
@@ -33,9 +37,27 @@ export class KundenDashboardComponent implements OnInit {
   {
     this.kundenObj.id = this.formvalue.value.Id;
     this.kundenObj.Name = this.formvalue.value.Name;
-    this.kundenObj.Vorame = this.formvalue.value.Vorame;
+    this.kundenObj.Vorname = this.formvalue.value.Vorname;
     this.kundenObj.Email = this.formvalue.value.Email;
-    this.api.postKunden(this.kundenObj);
+    this.api.postKunden(this.kundenObj).subscribe(
+      res =>{
+        console.log(res);
+        alert("added successfully");
+        this.formvalue.reset();
+        this.getDetails();
+      },
+      err =>{
+        alert("failure");
+      });
+  }
+
+  getDetails()
+  {
+    this.api.getKunden().subscribe(
+      res=>{
+        this.KundenDaten = res;
+      }
+    )
   }
 
   onSubmit() {

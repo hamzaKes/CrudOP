@@ -103,5 +103,7 @@
       }
     }
   },
-  "defaultProject": "CrudOP"
+  "cli": {
+    "analytics": "c9c6523e-978a-4013-9d96-01a268682661"
+  }
 }

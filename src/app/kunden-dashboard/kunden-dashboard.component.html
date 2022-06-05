@@ -5,18 +5,18 @@
   <thead>
   <tr>
     <th class='attributes' scope="col" >ID</th>
-    <th class='attributes' scope="col" >Vorname</th>
     <th class='attributes' scope="col" >Nachname</th>
+    <th class='attributes' scope="col" >Vorname</th>
     <th class='attributes' scope="col" >E-mail</th>
     <th class='attributes' scope="col" >Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>1</td>
-    <td>Thomas</td>
-    <td>Müller</td>
-    <td>hk@gmail.com</td>
+  <tr *ngFor="let row of KundenDaten">
+    <td>{{row.id}}</td>
+    <td>{{row.Name}}</td>
+    <td>{{row.Vorname}}</td>
+    <td>{{row.Email}}</td>
     <td>
       <button class="btn btn-info">Edit</button>
       <button class="btn btn-danger">Delete</button>
@@ -40,13 +40,13 @@
       </div>
 
       <div class="mb-3">
-        <label for = "name">Name</label>
+        <label for="name">Name</label>
         <input formControlName="Name" type="text"   class="form-control" id="name"  placeholder="Enter Name">
 
       </div>
 
       <div class="mb-3">
-        <label for = "vorname">Vorname</label>
+        <label for="vorname">Vorname</label>
         <input formControlName="Vorname" type="text"   class="form-control" id="vorname"  placeholder="Enter Vorname">
 
       </div>
@@ -59,7 +59,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="postDeatails()">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)='postDeatails()'>Save</button>
   </div>
 </ng-template>
 <button class="btn btn-lg btn-primary" id="add" (click)="open(content)">Kunden hinzufügen</button>

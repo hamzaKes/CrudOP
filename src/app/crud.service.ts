@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {Observable, of} from "rxjs";
-import {ReactiveFormsModule} from "@angular/forms";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +21,12 @@ export class CrudService {
 
   updateKunden(data: any) {
 
+  }
+
+  getKunden() {
+    return this.http.get<any>("http://localhost:3000/posts").pipe(map((res:any)=>{
+      return res;
+    }))
   }
 
   deleteKunden(data: any) {
