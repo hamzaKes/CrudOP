@@ -38,7 +38,6 @@ describe('CrudService', () => {
   it('should make a GET HTTP request and return all data items', () => {
     service.getKunden().subscribe(res => {
       expect(res).toEqual(newEmployee);
-      expect(res.data.length).toBe(1);
     });
     const req = httpcontroller.expectOne('http://localhost:3000/posts');
     expect(req.request.method).toBe('GET');
@@ -46,5 +45,36 @@ describe('CrudService', () => {
     expect(req.request.responseType).toEqual('json');
     req.flush(newEmployee);
     httpcontroller.verify();
+  });
+
+  it('should update data',  () => {
+    const updatedemployee = {
+      id :'44',
+      Name: 'Alex',
+      Vorname : 'passed',
+      Email : 'test@gmail.com'
+    }
+    service.updateKunden(updatedemployee,updatedemployee.id).subscribe( res => {
+      expect(res).toEqual(updatedemployee);
+      });
+    const req = httpcontroller.expectOne('http://localhost:3000/posts/' + updatedemployee.id);
+    expect(req.request.method).toBe('PUT');
+    expect(req.cancelled).toBeFalsy();
+    expect(req.request.responseType).toEqual('json');
+    req.flush(updatedemployee);
+    httpcontroller.verify();
+  });
+  it('should delete by ID',  () => {
+    service.deleteKunden(newEmployee.id).subscribe(res=>{
+      expect(res).toEqual(newEmployee);
+    })
+    const req = httpcontroller.expectOne('http://localhost:3000/posts/' + newEmployee.id);
+    expect(req.request.method).toBe('DELETE');
+    expect(req.cancelled).toBeFalsy();
+    expect(req.request.responseType).toEqual('json');
+    req.flush(newEmployee);
+    httpcontroller.verify();
+
+
   });
 });

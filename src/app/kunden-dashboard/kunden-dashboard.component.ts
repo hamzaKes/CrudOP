@@ -3,6 +3,7 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import { UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {KundenModel} from "../Kunden-Model";
 import {CrudService} from "../crud.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-kunden-dashboard',
@@ -19,6 +20,7 @@ export class KundenDashboardComponent implements OnInit {
   });
   kundenObj: KundenModel=new KundenModel();
   KundenDaten:any;
+  EditObj:boolean = false;
   constructor(config: NgbModalConfig, private modalService: NgbModal,private api: CrudService) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -30,8 +32,8 @@ export class KundenDashboardComponent implements OnInit {
     this.getDetails();
   }
 
-  open(content: any) {
-    this.modalService.open(content);
+  reset() {
+    this.EditObj = false;
   }
   postDeatails()
   {
@@ -58,6 +60,34 @@ export class KundenDashboardComponent implements OnInit {
         this.KundenDaten = res;
       }
     )
+  }
+  onEditClick(row: any)
+  {
+    this.EditObj=true;
+    this.formvalue.controls['Id'].setValue(row.id);
+    this.formvalue.controls['Name'].setValue(row.Name);
+    this.formvalue.controls['Vorname'].setValue(row.Vorname);
+    this.formvalue.controls['Email'].setValue(row.Email);
+    this.kundenObj.id = row.id;
+
+  }
+
+  updateDetails()
+  {
+    this.kundenObj.id = this.formvalue.value.Id;
+    this.kundenObj.Name = this.formvalue.value.Name;
+    this.kundenObj.Vorname = this.formvalue.value.Vorname;
+    this.kundenObj.Email = this.formvalue.value.Email;
+
+    this.api.updateKunden(this.kundenObj,this.kundenObj.id).subscribe(
+      res=>{
+        alert("update successful");
+        this.getDetails();
+      },
+      error => {
+      alert("failed");
+  })
+
   }
 
   onSubmit() {

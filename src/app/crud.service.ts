@@ -19,8 +19,10 @@ export class CrudService {
 
   }
 
-  updateKunden(data: any) {
-
+  updateKunden(data: any,id: any) {
+    return this.http.put<any>("http://localhost:3000/posts/" + id,data).pipe(map((res:any)=>{
+      return res;
+    }))
   }
 
   getKunden() {
@@ -29,8 +31,11 @@ export class CrudService {
     }))
   }
 
-  deleteKunden(data: any) {
-
+  deleteKunden(id: any) {
+  return this.http.delete("http://localhost:3000/posts/" + id).pipe(map(
+    res =>{
+      return res;
+    }));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
