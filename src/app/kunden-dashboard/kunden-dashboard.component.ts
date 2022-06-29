@@ -3,7 +3,7 @@ import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import { UntypedFormControl, UntypedFormGroup} from "@angular/forms";
 import {KundenModel} from "../Kunden-Model";
 import {CrudService} from "../crud.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+
 
 @Component({
   selector: 'app-kunden-dashboard',
@@ -21,20 +21,24 @@ export class KundenDashboardComponent implements OnInit {
   kundenObj: KundenModel=new KundenModel();
   KundenDaten:any;
   EditObj:boolean = false;
+
   constructor(config: NgbModalConfig, private modalService: NgbModal,private api: CrudService) {
     config.backdrop = 'static';
     config.keyboard = false;
   }
 
-
+//Wenn die App zum ersten Mal initialisiert wird, werden alle Kundendetails mit getDetail geladen
   ngOnInit(): void
   {
     this.getDetails();
   }
 
+  //Wenn auf "kunden Hinzufügen" geklickt wird, sollte das Hinzufügen-Formular angezeigt werden
   reset() {
     this.EditObj = false;
   }
+
+  //Details eines neuen Kunden in die über das Formular angegebene Datenbank eingeben
   postDeatails()
   {
     this.kundenObj.id = this.formvalue.value.Id;
@@ -44,23 +48,27 @@ export class KundenDashboardComponent implements OnInit {
     this.api.postKunden(this.kundenObj).subscribe(
       res =>{
         console.log(res);
+        //nutzer benachrichten wenn die POST ist richtig ausgefürt
         alert("added successfully");
         this.formvalue.reset();
         this.getDetails();
       },
       err =>{
+        //nutzer benachrigten wenn eine Fehler auftritt
         alert("failure");
       });
   }
 
+  //alle gespeicherte kunden Daten die in die Datenbank aufladen
   getDetails()
   {
     this.api.getKunden().subscribe(
       res=>{
         this.KundenDaten = res;
-      }
-    )
+      })
   }
+
+  //UPDATE Formular aufladen mit die bereits gespeichert kunden Daten aufladen
   onEditClick(row: any)
   {
     this.EditObj=true;
@@ -72,6 +80,7 @@ export class KundenDashboardComponent implements OnInit {
 
   }
 
+  //Bereits gespeicherte kunden Daten aktualisieren/ändern
   updateDetails()
   {
     this.kundenObj.id = this.formvalue.value.Id;
@@ -88,6 +97,15 @@ export class KundenDashboardComponent implements OnInit {
       alert("failed");
   })
 
+  }
+
+  //kunden mit die gegeben id entfernen
+  deletDetail(id:any){
+    this.api.deleteKunden(id).subscribe(
+      res=>{
+        alert("kunden deleted");
+        this.getDetails();
+      })
   }
 
   onSubmit() {

@@ -1,69 +1,6 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    },
-    {
-      "id": "12",
-      "Name": "Hamza Kesraoui",
-      "Email": "kesraoui.hamza1999@gmail.com"
-    },
-    {
-      "id": "78",
-      "Name": "alex",
-      "Email": "kesraoui.hamza1999@gmail.com"
-    },
-    {
-      "id": "3",
-      "Name": "Hamza ",
-      "Vorname": "kesraoui",
-      "Email": "kesraoui.hamza1999@gmail.com"
-    },
-    {
-      "id": "90",
-      "Name": "hmaz",
-      "Vorname": "thomas",
-      "Email": "tk@gmail.com"
-    },
-    {
-      "id": "32",
-      "Name": "test",
-      "Vorname": "test",
-      "Email": "tt@rh.xn--co-gka"
-    },
-    {
-      "id": "45",
-      "Name": "est",
-      "Vorname": "test",
-      "Email": "test@tu.c"
-    },
-    {
-      "id": " 12",
-      "Name": [
-        ""
-      ],
-      "Vorname": [
-        ""
-      ],
-      "Email": [
-        ""
-      ]
-    },
-    {
-      "id": "v6QAaSI",
-      "Name": "hamza",
-      "Vorname": null,
-      "Email": null
-    },
-    {
-      "id": "46",
-      "Name": "thomas",
-      "Vorname": "isq",
-      "Email": "tu@ha.com"
-    },
-    {
       "id": "23",
       "Name": "Hamza Kesraoui",
       "Vorname": "Hamza",
@@ -78,37 +15,25 @@
       "Email": "maoe@gmail.com"
     },
     {
-      "id": "453",
-      "Name": "hale",
-      "Vorname": "kea",
-      "Email": "tres@tudortmund.de"
-    },
-    {
       "id": "693",
       "Name": "Moez ",
       "Vorname": "Daly ",
       "Email": "moezdaly@fuck.com"
     },
     {
-      "id": "99",
-      "Name": "alloha",
-      "Vorname": "modafucka",
-      "Email": "kesraoui.hamza1999@gmail.com"
-    },
-    {
       "id": "911",
       "Name": "hae",
       "Vorname": "afs",
       "Email": "qsjq@taj.cde"
-    }
-  ],
-  "comments": [
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "77",
+      "Name": "thomas",
+      "Vorname": "müller",
+      "Email": "tar@gmail.com"
     }
   ],
+  "comments": [],
   "profile": {
     "name": "typicode"
   }

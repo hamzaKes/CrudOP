@@ -4,11 +4,11 @@
 <table class="table table-striped table-hover">
   <thead>
   <tr>
-    <th class='attributes' scope="col" >ID</th>
-    <th class='attributes' scope="col" >Nachname</th>
-    <th class='attributes' scope="col" >Vorname</th>
-    <th class='attributes' scope="col" >E-mail</th>
-    <th class='attributes' scope="col" >Action</th>
+    <th class='attributes' scope="col">ID</th>
+    <th class='attributes' scope="col">Nachname</th>
+    <th class='attributes' scope="col">Vorname</th>
+    <th class='attributes' scope="col">E-mail</th>
+    <th class='attributes' scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -18,8 +18,10 @@
     <td>{{row.Vorname}}</td>
     <td>{{row.Email}}</td>
     <td>
-      <button class="btn btn-info" value="Edit" (click)="onEditClick(row)" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-      <button class="btn btn-danger">Delete</button>
+      <button class="btn btn-info" value="Edit" (click)="onEditClick(row)" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">Edit
+      </button>
+      <button class="btn btn-danger" (click)="deletDetail(row.id)">Delete</button>
     </td>
   </tr>
   </tbody>
@@ -29,44 +31,47 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-  <div class="modal-header" >
-    <h4 class="modal-title" id="modal-basic-title">Kunden Informationen</h4>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="formvalue" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
-        <label for ="id">ID</label>
-        <input formControlName="Id" type="text"  class="form-control" id="Id"  placeholder="Enter Id">
-
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Kunden Informationen</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="reset()"></button>
       </div>
+      <div class="modal-body">
+        <form [formGroup]="formvalue" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="id">ID</label>
+            <input formControlName="Id" type="text" class="form-control" id="Id" placeholder="Enter Id">
 
-      <div class="mb-3">
-        <label for="Name">Name</label>
-        <input formControlName="Name" type="text"   class="form-control" id="name"  placeholder="Enter Name">
+          </div>
+
+          <div class="mb-3">
+            <label for="Name">Name</label>
+            <input formControlName="Name" type="text" class="form-control" id="name" placeholder="Enter Name">
+          </div>
+
+          <div class="mb-3">
+            <label for="Vorname">Vorname</label>
+            <input formControlName="Vorname" type="text" class="form-control" id="vorname" placeholder="Enter Vorname">
+          </div>
+
+          <div class="mb-3">
+            <label for="E-Mail address">Email address</label>
+            <input formControlName="Email" type="email" class="form-control" id="E-Mail address"
+                   placeholder="Enter email">
+
+          </div>
+        </form>
       </div>
-
-      <div class="mb-3">
-        <label for="Vorname">Vorname</label>
-        <input formControlName="Vorname" type="text"   class="form-control" id="vorname"  placeholder="Enter Vorname">
+      <div class="modal-footer">
+        <button *ngIf="!EditObj" type="button" class="btn btn-outline-dark" (click)='postDeatails()'>Save</button>
+        <button *ngIf="EditObj" type="button" class="btn btn-outline-dark" (click)='updateDetails()'>Edit</button>
       </div>
-
-      <div class="mb-3">
-        <label for="E-Mail address">Email address</label>
-        <input formControlName="Email" type="email"  class="form-control" id="E-Mail address"  placeholder="Enter email">
-
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button *ngIf="!EditObj"  type="button" class="btn btn-outline-dark" (click)='postDeatails()'>Save</button>
-    <button *ngIf="EditObj" type="button" class="btn btn-outline-dark" (click)='updateDetails()'>Edit</button>
-  </div>
 
     </div>
   </div>
 </div>
-<button class="btn btn-lg btn-primary" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="reset()">Kunden hinzufügen</button>
+<button class="btn btn-lg btn-primary" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        (click)="reset()">Kunden hinzufügen
+</button>
 
 
 
