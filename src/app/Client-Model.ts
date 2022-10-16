@@ -1,4 +1,4 @@
-export class KundenModel{
+export class ClientModel {
   id:number=0;
   Name:string = '';
   Vorname:string = '';

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 import { UntypedFormControl, UntypedFormGroup} from "@angular/forms";
-import {KundenModel} from "../Kunden-Model";
+import {ClientModel} from "../Client-Model";
 import {CrudService} from "../crud.service";
 
 
 @Component({
-  selector: 'app-kunden-dashboard',
-  templateUrl: './kunden-dashboard.component.html',
-  styleUrls: ['./kunden-dashboard.component.css'],
+  selector: 'app-Client-dashboard',
+  templateUrl: './Client-dashboard.component.html',
+  styleUrls: ['./Client-dashboard.component.css'],
 })
-export class KundenDashboardComponent implements OnInit {
+export class ClientDashboardComponent implements OnInit {
 
   formvalue: UntypedFormGroup = new UntypedFormGroup({
     Id: new UntypedFormControl(['']),
@@ -18,8 +18,8 @@ export class KundenDashboardComponent implements OnInit {
     Vorname: new UntypedFormControl(['']),
     Email: new UntypedFormControl([''])
   });
-  kundenObj: KundenModel=new KundenModel();
-  KundenDaten:any;
+  ClientObj: ClientModel=new ClientModel();
+  ClientDaten:any;
   EditObj:boolean = false;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal,private api: CrudService) {
@@ -27,25 +27,27 @@ export class KundenDashboardComponent implements OnInit {
     config.keyboard = false;
   }
 
-//Wenn die App zum ersten Mal initialisiert wird, werden alle Kundendetails mit getDetail geladen
+//Wenn die App zum ersten Mal initialisiert wird, werden alle Clientdetails mit getDetail geladen
   ngOnInit(): void
   {
     this.getDetails();
   }
 
-  //Wenn auf "kunden Hinzufügen" geklickt wird, sollte das Hinzufügen-Formular angezeigt werden
+  //Wenn auf "Client Hinzufügen" geklickt wird, sollte das Hinzufügen-Formular angezeigt werden
   reset() {
     this.EditObj = false;
+    this.formvalue.reset();
   }
 
-  //Details eines neuen Kunden in die über das Formular angegebene Datenbank eingeben
+  //Details eines neuen Client in die über das Formular angegebene Datenbank eingeben
   postDeatails()
   {
-    this.kundenObj.id = this.formvalue.value.Id;
-    this.kundenObj.Name = this.formvalue.value.Name;
-    this.kundenObj.Vorname = this.formvalue.value.Vorname;
-    this.kundenObj.Email = this.formvalue.value.Email;
-    this.api.postKunden(this.kundenObj).subscribe(
+
+    this.ClientObj.id = this.formvalue.value.Id;
+    this.ClientObj.Name = this.formvalue.value.Name;
+    this.ClientObj.Vorname = this.formvalue.value.Vorname;
+    this.ClientObj.Email = this.formvalue.value.Email;
+    this.api.postClient(this.ClientObj).subscribe(
       res =>{
         console.log(res);
         //nutzer benachrichten wenn die POST ist richtig ausgefürt
@@ -59,36 +61,37 @@ export class KundenDashboardComponent implements OnInit {
       });
   }
 
-  //alle gespeicherte kunden Daten die in die Datenbank aufladen
+  //alle gespeicherte Client Daten die in die Datenbank aufladen
   getDetails()
   {
-    this.api.getKunden().subscribe(
+    this.api.getClient().subscribe(
       res=>{
-        this.KundenDaten = res;
+        this.ClientDaten = res;
       })
   }
 
-  //UPDATE Formular aufladen mit die bereits gespeichert kunden Daten aufladen
+  //UPDATE Formular aufladen mit die bereits gespeichert Client Daten aufladen
   onEditClick(row: any)
   {
+
     this.EditObj=true;
     this.formvalue.controls['Id'].setValue(row.id);
     this.formvalue.controls['Name'].setValue(row.Name);
     this.formvalue.controls['Vorname'].setValue(row.Vorname);
     this.formvalue.controls['Email'].setValue(row.Email);
-    this.kundenObj.id = row.id;
+    this.ClientObj.id = row.id;
 
   }
 
-  //Bereits gespeicherte kunden Daten aktualisieren/ändern
+  //Bereits gespeicherte Client Daten aktualisieren/ändern
   updateDetails()
   {
-    this.kundenObj.id = this.formvalue.value.Id;
-    this.kundenObj.Name = this.formvalue.value.Name;
-    this.kundenObj.Vorname = this.formvalue.value.Vorname;
-    this.kundenObj.Email = this.formvalue.value.Email;
+    this.ClientObj.id = this.formvalue.value.Id;
+    this.ClientObj.Name = this.formvalue.value.Name;
+    this.ClientObj.Vorname = this.formvalue.value.Vorname;
+    this.ClientObj.Email = this.formvalue.value.Email;
 
-    this.api.updateKunden(this.kundenObj,this.kundenObj.id).subscribe(
+    this.api.updateClient(this.ClientObj,this.ClientObj.id).subscribe(
       res=>{
         alert("update successful");
         this.getDetails();
@@ -99,17 +102,18 @@ export class KundenDashboardComponent implements OnInit {
 
   }
 
-  //kunden mit die gegeben id entfernen
+
+  //Client mit die gegeben id entfernen
   deletDetail(id:any){
-    this.api.deleteKunden(id).subscribe(
+    this.api.deleteClient(id).subscribe(
       res=>{
-        alert("kunden deleted");
+        alert("Client deleted");
         this.getDetails();
       })
   }
 
   onSubmit() {
-    console.log(this.kundenObj);
+    console.log(this.ClientObj);
   }
 
 }
